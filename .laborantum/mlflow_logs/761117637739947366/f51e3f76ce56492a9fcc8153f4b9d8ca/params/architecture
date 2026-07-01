@@ -1,0 +1,1 @@
+net.0: Linear(784, 128) | net.1: LeakyReLU | net.2: Linear(128, 10)

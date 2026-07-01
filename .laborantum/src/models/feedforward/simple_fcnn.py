@@ -2,20 +2,28 @@ import torch
 
 class SimpleFCNN(torch.nn.Module):
     def __init__(
-            self, 
-            channels=None,
-            n_classes=10,
-            activation=torch.nn.ReLU):
-        ...
-        ## YOUR CODE HERE
-        # Define network modules in the constructor
+        self, 
+        channels=None,
+        n_classes=10,
+        activation=torch.nn.ReLU
+    ):
+        super().__init__()
+        
+        layers = []
+        
+        in_features = channels[0]
+        for out_features in channels[1:]:
+            layers.append(torch.nn.Linear(in_features, out_features))
+            layers.append(activation())
+            in_features = out_features
+        
+        layers.append(torch.nn.Linear(in_features, n_classes))
+        self.net = torch.nn.Sequential(*layers)
         
         
     def __forward_kernel(self, signal):
         signal = signal.reshape([signal.shape[0], -1])
-        ## YOUR CODE HERE
-        # Pass the signal through the modules in forward
-        
+        signal = self.net(signal)
         return signal
 
     def forward(self, batch):
@@ -28,14 +36,12 @@ class SimpleFCNN(torch.nn.Module):
         # Perform postprocessing after we get the output
         self.postprocessing(batch)
         
-        return batch['signals']['output']
+        return batch
     
     def postprocessing(self, batch):
         
         # Take network's output from the batch
         signal = batch['signals']['output']
         
-        ## YOUR CODE HERE
-        
         # Put the processed result into the batch
-        batch['postprocessed'] = {'class': signal}
+        batch['postprocessed'] = {'class': signal.argmax(dim=1)}

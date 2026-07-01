@@ -1,0 +1,14 @@
+artifact_uri: file:///workspaces/neural-networks-fundamentals/.laborantum/mlflow_logs/761117637739947366/b6b8fd1cb26348a2b4a06c5d3191b595/artifacts
+end_time: 1782930945399
+entry_point_name: ''
+experiment_id: '761117637739947366'
+lifecycle_stage: active
+run_id: b6b8fd1cb26348a2b4a06c5d3191b595
+run_name: autoencoder_long_run
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1782930688919
+status: 3
+tags: []
+user_id: root
